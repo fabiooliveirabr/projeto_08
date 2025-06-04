@@ -23,6 +23,26 @@ app.get('/', (req, res)=>{
   res.sendFile(path.join(__dirname, 'privado', 'index.html'))
 })
 
+// Endpoint para consultar os engenheiros
+app.get('/engenheiros', (req, res)=>{
+    db.query('SELECT * FROM tb_engenheiros', (erro, resultado)=>{
+        if(erro){return res.json({msg:'Falha ao consultar os engenheiros'+erro.message})}
+        return res.json(resultado)
+    })
+})
+
+// Endpoint para cadastrar
+app.post('/projetos', (req, res)=>{
+    const {nome_projeto, fk_id_engenheiro,
+           situacao, descricao} = req.body;
+    db.query(`INSERT INTO tb_projetos (nome_projeto, fk_id_engenheiro,
+             situacao, descricao) VALUES (?, ?, ?, ?)`, 
+             [nome_projeto, fk_id_engenheiro, situacao, descricao],
+             (erro, resultado)=>{
+                  if(erro){return res.json({msg:"Falha ao cadastrar"+erro.message}) }
+                  return res.json({msg:"Cadastrado com sucesso!"})
+             })
+})
 
 app.listen(3000, ()=>{
     console.log('Servidor rodando em http://localhost:3000');

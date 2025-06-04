@@ -3,6 +3,20 @@
     --branca: #ffffff;
     --preta: #000000;
 }
+button{
+    background-color: #008912;
+    border: none;
+    padding: 10px;
+    color: var(--branca);
+    font-weight: 900;
+    border-radius: 8px;
+}
+button:hover{
+    filter: contrast(10);
+    cursor: pointer;
+}
+
+
 body{
     margin: 0px;
     font-family: 'Segoe UI';
@@ -11,7 +25,7 @@ body{
     /* background-color: var(--verde); */
     background-image: linear-gradient(to bottom, var(--verde), rgb(4, 71, 14));
     color: var(--branca);
-    height: 50px;
+    height: 80px;
     display: flex;
     align-items: center;
     padding-left: 40px;
@@ -42,4 +56,10 @@ body{
     background-color: var(--branca);
     border-radius: 10px;
     width: fit-content;     height: fit-content;   padding: 40px;
+    box-shadow: 0px 0px 10px var(--preta);
+}
+
+.menus:hover{
+    cursor: pointer;
+    text-decoration: underline;
 }
