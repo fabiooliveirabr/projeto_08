@@ -63,3 +63,19 @@ body{
     cursor: pointer;
     text-decoration: underline;
 }
+#conteudo_pagina{
+    border: 1px solid red;
+    min-height: 800px;
+}
+
+#conteudo{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 25px;
+}
+#pendente, #finalizado, #em_andamento{
+    border: 1px solid gray;
+    width: 30%;
+    min-height: 500px;
+}

@@ -23,6 +23,11 @@ app.get('/', (req, res)=>{
   res.sendFile(path.join(__dirname, 'privado', 'index.html'))
 })
 
+// Página gerenciar projetos
+app.get('/projetos', (req, res)=>{
+  res.sendFile(path.join(__dirname, 'privado', 'projetos.html'))
+})
+
 // Endpoint para consultar os engenheiros
 app.get('/engenheiros', (req, res)=>{
     db.query('SELECT * FROM tb_engenheiros', (erro, resultado)=>{
@@ -41,6 +46,18 @@ app.post('/projetos', (req, res)=>{
              (erro, resultado)=>{
                   if(erro){return res.json({msg:"Falha ao cadastrar"+erro.message}) }
                   return res.json({msg:"Cadastrado com sucesso!"})
+             })
+})
+
+
+// Endpoint para cadastrar engenheiro
+app.post('/engenheiro', (req, res)=>{
+    const {nome_engenheiro} = req.body;
+    db.query(`INSERT INTO tb_engenheiros (nome_engenheiro) VALUES (?)`,
+             [nome_engenheiro],
+             (erro, resultado)=>{
+                if(erro) {return res.json({msg: "Falha ao cadastrar!"+erro.message})}
+                return res.json({msg: "Cadastrado com sucesso!"})
              })
 })
 
