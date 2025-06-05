@@ -61,6 +61,17 @@ app.post('/engenheiro', (req, res)=>{
              })
 })
 
+// Endpoint para consultar todos os projetos com status Pendente
+app.get('/projetos_pendentes', (req, res)=>{
+    db.query(`SELECT * FROM tb_projetos WHERE situacao='Pendente'`,
+             (erro, resultado)=>{
+                if(erro){return res.json({msg:"Falha ao consultar!"+erro.message})}
+                if(resultado.length == 0){return res.json({msg:"Nenhum projeto"})}
+                return res.json(resultado)
+             })
+})
+
+
 app.listen(3000, ()=>{
     console.log('Servidor rodando em http://localhost:3000');
 });
