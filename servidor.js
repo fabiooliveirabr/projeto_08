@@ -63,7 +63,25 @@ app.post('/engenheiro', (req, res)=>{
 
 // Endpoint para consultar todos os projetos com status Pendente
 app.get('/projetos_pendentes', (req, res)=>{
-    db.query(`SELECT * FROM tb_projetos WHERE situacao='Pendente'`,
+    db.query(`SELECT * FROM vw_proj_eng WHERE situacao='Pendente'`,
+             (erro, resultado)=>{
+                if(erro){return res.json({msg:"Falha ao consultar!"+erro.message})}
+                if(resultado.length == 0){return res.json({msg:"Nenhum projeto"})}
+                return res.json(resultado)
+             })
+})
+// Endpoint para consultar todos os projetos com status finalizados
+app.get('/projetos_finalizados', (req, res)=>{
+    db.query(`SELECT * FROM vw_proj_eng WHERE situacao='Finalizado'`,
+             (erro, resultado)=>{
+                if(erro){return res.json({msg:"Falha ao consultar!"+erro.message})}
+                if(resultado.length == 0){return res.json({msg:"Nenhum projeto"})}
+                return res.json(resultado)
+             })
+})
+// Endpoint para consultar todos os projetos com status em andamento
+app.get('/projetos_em_andamento', (req, res)=>{
+    db.query(`SELECT * FROM vw_proj_eng WHERE situacao='Em andamento'`,
              (erro, resultado)=>{
                 if(erro){return res.json({msg:"Falha ao consultar!"+erro.message})}
                 if(resultado.length == 0){return res.json({msg:"Nenhum projeto"})}
