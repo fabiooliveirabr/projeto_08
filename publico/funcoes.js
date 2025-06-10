@@ -114,3 +114,52 @@ $("#btn_cadastrar_eng").click(function () {
 $("#btn_gen_proj").click(function(){
     $("#conteudo_pagina").load('/projetos')
 })
+
+$('#btn_deletar').click(function(){
+    var confirmacao = confirm('Tem certeza que deseja apagar')
+    if(confirmacao == false){ return}
+
+    var id_projeto = $("#caixa_cod_projeto2").val()
+    $.ajax({
+        url: 'http://localhost:3000/deletar_projeto/'+id_projeto,
+        type: 'DELETE',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function(resposta){
+            alert(resposta.msg)
+            window.location.href = '/'
+        },
+        error: function(){
+            alert("Falha ao acessar DELETE/deletar_projeto/")
+        }
+    })
+})
+
+
+$("#btn_salvar").click(function(){
+    var id_projeto = $("#caixa_cod_projeto2").val()
+    var fk_id_engenheiro = $("#caixa_engenheiro2").val()
+    var nome_projeto = $("#caixa_nome2").val()
+    var situacao = $("#caixa_situacao2").val()
+    var descricao = $("#caixa_descricao2").val()
+
+    $("#formulario_editar_projeto").hide()
+    $("#tela_escura").hide()
+
+    // alert(id_projeto+fk_id_engenheiro+nome_projeto+situacao+descricao)  
+    $.ajax({
+        url:"http://localhost:3000/alterar_projeto",
+        type: 'PUT',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({descricao, id_projeto, 
+                             fk_id_engenheiro, situacao, nome_projeto}),
+        success: function(resposta){
+            alert(resposta.msg)
+            window.location.href = '/'
+        },
+        error: function(){
+            alert("Falha ao acessar PUT /alterar_projeto")
+        }
+    })    
+})

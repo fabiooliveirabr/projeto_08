@@ -100,6 +100,19 @@ app.delete('/deletar_projeto/:id_projeto', (req, res)=>{
     })
 })
 
+// Endpoint para editar um projeto
+app.put('/alterar_projeto', (req, res)=>{
+  const {id_projeto, nome_projeto, fk_id_engenheiro, situacao, descricao}
+  = req.body;
+  db.query(`UPDATE tb_projetos SET nome_projeto=?, fk_id_engenheiro=?,
+            situacao=?, descricao=? WHERE id_projeto=?`,
+           [nome_projeto, fk_id_engenheiro, situacao, descricao, id_projeto],
+           (erro, resultado)=>{
+              if(erro){return res.json({msg:"Falha ao atualizar! "+erro.message})}
+              if(resultado.affectedRows == 0){return res.json({msg:"Nada alterado!"})}
+              return res.json({msg:"Atualizado com sucesso!"})
+            })
+})
 
 app.listen(3000, ()=>{
     console.log('Servidor rodando em http://localhost:3000');

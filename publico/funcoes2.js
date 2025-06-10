@@ -155,22 +155,3 @@ $("#btn_fechar_editar").click(function(){
     $("#tela_escura").hide();
 })
 
-$('#btn_deletar').click(function(){
-    var confirmacao = confirm('Tem certeza que deseja apagar')
-    if(confirmacao == false){ return}
-
-    var id_projeto = $("#caixa_cod_projeto2").val()
-    $.ajax({
-        url: 'http://localhost:3000/deletar_projeto/'+id_projeto,
-        type: 'DELETE',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function(resposta){
-            alert(resposta.msg)
-            window.location.href = '/'
-        },
-        error: function(){
-            alert("Falha ao acessar DELETE/deletar_projeto/")
-        }
-    })
-})
