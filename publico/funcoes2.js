@@ -110,7 +110,7 @@ function carregarEmAndamento(){
                        <span id='nome_engenheiro'>${item.nome_engenheiro}</span> <br>
 
                        Cód. do Engenheiro:
-                       <span id='id_engenheiro' hidden>${item.id_engenheiro}</span> <br>
+                       <span id='id_engenheiro'>${item.id_engenheiro}</span> <br>
                     </div>
                 `)
             })
@@ -122,15 +122,55 @@ function carregarEmAndamento(){
 }
 
 
-
-
-
-
-
-
 // Executar ações ao abrir o site
 $(document).ready(function(){
    carregarPendentes()
    carregarFinalizados()
    carregarEmAndamento()
+   $("#formulario_editar_projeto").hide()
+})
+
+//Click nos cartões
+$(document).on('click','.cartoes', function(){
+    $("#formulario_editar_projeto").show()
+    $("#tela_escura").show();
+    var id_projeto = $(this).find('#id_projeto').text()
+    $("#caixa_cod_projeto2").val(id_projeto)
+
+    var nome_projeto = $(this).find('#nome_projeto').text()
+    $("#caixa_nome2").val(nome_projeto)
+
+    var descricao = $(this).find('#descricao').text()
+    $("#caixa_descricao2").val(descricao)
+
+    var fk_id_engenheiro = $(this).find('#id_engenheiro').text()
+    $("#caixa_engenheiro2").val(fk_id_engenheiro)
+
+    var situacao = $(this).find('#situacao').text()
+    $("#caixa_situacao2").val(situacao)
+})
+
+$("#btn_fechar_editar").click(function(){
+    $("#formulario_editar_projeto").hide()
+    $("#tela_escura").hide();
+})
+
+$('#btn_deletar').click(function(){
+    var confirmacao = confirm('Tem certeza que deseja apagar')
+    if(confirmacao == false){ return}
+
+    var id_projeto = $("#caixa_cod_projeto2").val()
+    $.ajax({
+        url: 'http://localhost:3000/deletar_projeto/'+id_projeto,
+        type: 'DELETE',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function(resposta){
+            alert(resposta.msg)
+            window.location.href = '/'
+        },
+        error: function(){
+            alert("Falha ao acessar DELETE/deletar_projeto/")
+        }
+    })
 })

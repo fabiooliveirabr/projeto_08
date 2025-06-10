@@ -53,7 +53,7 @@ body{
     z-index: 1000;
     display: flex;    justify-content: center;      align-items: center;
 }
-#formulario_cad_eng, #formulario_cad_proj{
+#formulario_cad_eng, #formulario_cad_proj, #formulario_editar_projeto{
     background-color: var(--branca);
     border-radius: 10px;
     width: fit-content;     height: fit-content;   padding: 40px;

@@ -1,5 +1,6 @@
 function carregarEngenheiros() {
     $("#caixa_engenheiro").append('<option>Selecione</option>')
+    $("#caixa_engenheiro2").append('<option>Selecione</option>')
     $.ajax({
         url: 'http://localhost:3000/engenheiros',
         type: 'GET',
@@ -8,6 +9,9 @@ function carregarEngenheiros() {
         success: function (dados) {
             dados.forEach(function (item) {
                 $("#caixa_engenheiro").append(`
+                    <option value='${item.id_engenheiro}'>${item.nome_engenheiro}</option>
+                    `)
+                $("#caixa_engenheiro2").append(`
                     <option value='${item.id_engenheiro}'>${item.nome_engenheiro}</option>
                     `)
             })

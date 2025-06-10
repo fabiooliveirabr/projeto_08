@@ -89,6 +89,17 @@ app.get('/projetos_em_andamento', (req, res)=>{
              })
 })
 
+//Endpoint para deletar projetos
+app.delete('/deletar_projeto/:id_projeto', (req, res)=>{
+  const {id_projeto} = req.params;
+  db.query('DELETE FROM tb_projetos WHERE id_projeto=?', [id_projeto],
+    (erro, resultado)=>{
+        if(erro){return res.json({msg:"Falha ao deletar! "+erro.message}) }
+        if(resultado.affectedRows == 0){return res.json({msg:"Nada alterado!"})}
+        return res.json({msg:"Deletado com sucesso!"})
+    })
+})
+
 
 app.listen(3000, ()=>{
     console.log('Servidor rodando em http://localhost:3000');
